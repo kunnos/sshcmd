@@ -2,6 +2,7 @@ package sshutil
 
 import (
 	"bufio"
+	"os"
 	"github.com/wonderivan/logger"
 	"strings"
 )
@@ -13,6 +14,7 @@ func (ss *SSH) Cmd(host string, cmd string) []byte {
 	defer func() {
 		if r := recover(); r != nil {
 			logger.Error("[ssh][%s]Error create ssh session failed,%s", host, err)
+			os.Exit(0)
 		}
 	}()
 	if err != nil {
@@ -24,6 +26,7 @@ func (ss *SSH) Cmd(host string, cmd string) []byte {
 	defer func() {
 		if r := recover(); r != nil {
 			logger.Error("[ssh][%s]Error exec command failed: %s", host, err)
+			os.Exit(0)
 		}
 	}()
 	if err != nil {
